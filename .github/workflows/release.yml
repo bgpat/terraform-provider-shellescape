@@ -23,8 +23,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Upload Assets
-      uses: csexton/release-asset-action@v2
+      uses: bgpat/release-asset-action@master
       with:
         pattern: "dist/*"
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        release-url: ${{ steps.release_drafter.outputs.upload_url }}
+        release-id: ${{ steps.release_drafter.outputs.id }}
+        allow-overwrite: true
