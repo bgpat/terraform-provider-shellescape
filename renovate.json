@@ -1,5 +1,17 @@
 {
   "extends": [
-    "config:base"
+    "config:recommended"
+  ],
+  "postUpdateOptions": [
+    "gomodTidy",
+    "gomodUpdateImportPaths"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["gomod"],
+      "automerge": true,
+      "platformAutomerge": true,
+      "labels": ["dependencies"]
+    }
   ]
 }
