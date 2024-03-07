@@ -1,18 +1,12 @@
 package shellescape_test
 
 import (
-	"testing"
+	"github.com/hashicorp/terraform-plugin-framework/providerserver"
+	"github.com/hashicorp/terraform-plugin-go/tfprotov6"
 
 	"github.com/bgpat/terraform-provider-shellescape/shellescape"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-func TestProvider(t *testing.T) {
-	if err := shellescape.Provider().InternalValidate(); err != nil {
-		t.Fatal(err)
-	}
-}
-
-func TestProvider_impl(t *testing.T) {
-	var _ *schema.Provider = shellescape.Provider()
+var testAccProtoV6ProviderFactories = map[string]func() (tfprotov6.ProviderServer, error){
+	"shellescape": providerserver.NewProtocol6WithError(shellescape.New()),
 }

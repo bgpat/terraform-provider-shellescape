@@ -1,14 +1,40 @@
 package shellescape
 
 import (
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"context"
+
+	"github.com/hashicorp/terraform-plugin-framework/datasource"
+	"github.com/hashicorp/terraform-plugin-framework/provider"
+	"github.com/hashicorp/terraform-plugin-framework/resource"
 )
 
-// Provider returns a *schema.Provider.
-func Provider() *schema.Provider {
-	return &schema.Provider{
-		DataSourcesMap: map[string]*schema.Resource{
-			"shellescape_quote": dataSourceShellescapeQuote(),
+type shellescapeProvider struct {
+	version string
+}
+
+func New() provider.Provider {
+	return &shellescapeProvider{}
+}
+
+func (p *shellescapeProvider) Metadata(_ context.Context, _ provider.MetadataRequest, resp *provider.MetadataResponse) {
+	resp.TypeName = "shellescape"
+	resp.Version = p.version
+}
+
+func (p *shellescapeProvider) Schema(context.Context, provider.SchemaRequest, *provider.SchemaResponse) {
+}
+
+func (p *shellescapeProvider) Configure(context.Context, provider.ConfigureRequest, *provider.ConfigureResponse) {
+}
+
+func (p *shellescapeProvider) Resources(context.Context) []func() resource.Resource {
+	return []func() resource.Resource{}
+}
+
+func (p *shellescapeProvider) DataSources(context.Context) []func() datasource.DataSource {
+	return []func() datasource.DataSource{
+		func() datasource.DataSource {
+			return &QuoteDataSource{}
 		},
 	}
 }

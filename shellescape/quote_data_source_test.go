@@ -4,10 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-
-	"github.com/bgpat/terraform-provider-shellescape/shellescape"
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 )
 
 var chars = map[string]string{
@@ -30,12 +27,12 @@ var chars = map[string]string{
 	"`": "'`'", "{": "'{'", "|": "'|'", "}": "'}'", "~": "'~'",
 }
 
-func TestDataSourceShellescapeQuote(t *testing.T) {
+func TestQuoteDataSource(t *testing.T) {
 	for k, v := range chars {
 		t.Run(k, func(t *testing.T) {
 			resource.ParallelTest(t, resource.TestCase{
-				IsUnitTest: true,
-				Providers:  map[string]*schema.Provider{"shellescape": shellescape.Provider()},
+				IsUnitTest:               true,
+				ProtoV6ProviderFactories: testAccProtoV6ProviderFactories,
 				Steps: []resource.TestStep{
 					{
 						Config: fmt.Sprintf(`data "shellescape_quote" "test" { string = "%s" }`, k),
