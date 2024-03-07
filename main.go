@@ -1,13 +1,24 @@
 package main
 
 import (
-	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
+	"context"
+	"log"
+
+	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 
 	"github.com/bgpat/terraform-provider-shellescape/shellescape"
 )
 
 func main() {
-	plugin.Serve(&plugin.ServeOpts{
-		ProviderFunc: shellescape.Provider,
-	})
+	err := providerserver.Serve(
+		context.Background(),
+		shellescape.New,
+		providerserver.ServeOpts{
+			Address: "registry.terraform.io/bgpat/shellescape",
+		},
+	)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
