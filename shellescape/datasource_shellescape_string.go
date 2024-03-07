@@ -26,7 +26,9 @@ func dataSourceShellescapeQuote() *schema.Resource {
 
 func dataSourceShellescapeQuoteRead(d *schema.ResourceData, m interface{}) error {
 	quoted := shellescape.Quote(d.Get("string").(string))
-	d.Set("quoted", quoted)
+	if err := d.Set("quoted", quoted); err != nil {
+		return err
+	}
 	d.SetId(strconv.Itoa(hashcode.String(quoted)))
 	return nil
 }
