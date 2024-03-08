@@ -7,7 +7,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 )
 
-func TestQuoteDataSource(t *testing.T) {
+func TestQuoteFunction(t *testing.T) {
 	for k, v := range chars {
 		t.Run(k, func(t *testing.T) {
 			resource.ParallelTest(t, resource.TestCase{
@@ -15,8 +15,8 @@ func TestQuoteDataSource(t *testing.T) {
 				ProtoV6ProviderFactories: testAccProtoV6ProviderFactories,
 				Steps: []resource.TestStep{
 					{
-						Config: fmt.Sprintf(`data "shellescape_quote" "test" { string = "%s" }`, k),
-						Check:  resource.ComposeTestCheckFunc(resource.TestCheckResourceAttr("data.shellescape_quote.test", "quoted", v)),
+						Config: fmt.Sprintf(`output "test" { value = provider::shellescape::quote("%s") }`, k),
+						Check:  resource.ComposeTestCheckFunc(resource.TestCheckOutput("test", v)),
 					},
 				},
 			})

@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
+	"github.com/hashicorp/terraform-plugin-framework/function"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 )
@@ -35,6 +36,14 @@ func (p *shellescapeProvider) DataSources(context.Context) []func() datasource.D
 	return []func() datasource.DataSource{
 		func() datasource.DataSource {
 			return &QuoteDataSource{}
+		},
+	}
+}
+
+func (p *shellescapeProvider) Functions(context.Context) []func() function.Function {
+	return []func() function.Function{
+		func() function.Function {
+			return &QuoteFunction{}
 		},
 	}
 }
