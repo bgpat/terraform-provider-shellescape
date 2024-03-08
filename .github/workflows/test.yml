@@ -11,4 +11,6 @@ jobs:
         with:
           go-version-file: go.mod
           cache: true
-      - run: go test -parallel=100 ./...
+      - run: go test ./...
+        env:
+          TF_ACC_TERRAFORM_VERSION: v1.8.0-beta1
