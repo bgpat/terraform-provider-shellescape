@@ -6,7 +6,7 @@ toolchain go1.22.2
 
 require (
 	github.com/alessio/shellescape v1.4.2
-	github.com/hashicorp/terraform-plugin-framework v1.6.1
+	github.com/hashicorp/terraform-plugin-framework v1.8.0
 	github.com/hashicorp/terraform-plugin-go v0.22.2
 	github.com/hashicorp/terraform-plugin-testing v1.7.0
 )
