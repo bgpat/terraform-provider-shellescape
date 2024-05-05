@@ -11,7 +11,4 @@ jobs:
         with:
           go-version-file: go.mod
           cache: true
-      - uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.8.0-beta1
       - run: go test ./...
