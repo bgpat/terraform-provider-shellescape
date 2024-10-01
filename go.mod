@@ -2,7 +2,7 @@ module github.com/bgpat/terraform-provider-shellescape
 
 go 1.22.0
 
-toolchain go1.23.1
+toolchain go1.23.2
 
 require (
 	github.com/alessio/shellescape v1.4.2
